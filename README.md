@@ -63,3 +63,14 @@ To run against a live server:
     ```shell
     exit
     ```
+
+## Adding users
+
+1. Have them [add their SSH key to their GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
+1. Add GitHub username to the `users` variable in [the playbook](playbook.yml).
+1. [Run the playbook.](#production)
+
+## Removing users
+
+1. Move username from the `users` to `former_users` variable in [the playbook](playbook.yml).
+1. [Run the playbook.](#production)
