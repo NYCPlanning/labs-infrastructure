@@ -9,6 +9,8 @@
       - andycochran
       - chriswhong
     former_users: []
+  roles:
+    - role: jnv.unattended-upgrades
   handlers:
     - name: Restart SSH
       service:

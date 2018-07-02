@@ -1,4 +1,5 @@
 # Ansible
+roles/
 *.retry
 
 # Vagrant

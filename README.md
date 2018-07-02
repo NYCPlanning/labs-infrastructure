@@ -12,6 +12,7 @@
     ```shell
     pipenv install
     pipenv shell
+    ansible-galaxy install -p roles -r requirements.yml
 
     vagrant up
     vagrant provision
