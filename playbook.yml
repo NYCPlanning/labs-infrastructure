@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: Show connected
+      command: echo "Connected!"
