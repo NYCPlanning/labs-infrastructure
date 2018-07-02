@@ -16,6 +16,10 @@
       service:
         name: ssh
         state: restarted
+    - name: Restart Docker
+      service:
+        name: docker
+        state: restarted
   tasks:
     - name: Set up users
       include_tasks: tasks/user.yml
@@ -31,3 +35,8 @@
         regexp: ^PermitRootLogin
         line: PermitRootLogin no
       notify: Restart SSH
+    - name: Copy in Docker config
+      copy:
+        src: files/docker-daemon.json
+        dest: /etc/docker/daemon.json
+      notify: Restart Docker
