@@ -1,6 +1,13 @@
 ---
 - hosts: all
   become: true
+  vars:
+    users:
+      - afeld
+      - allthesignals
+      - andycochran
+      - chriswhong
+    former_users: []
   handlers:
     - name: Restart SSH
       service:
@@ -9,11 +16,12 @@
   tasks:
     - name: Set up users
       include_tasks: tasks/user.yml
-      loop:
-        - afeld
-        - allthesignals
-        - andycochran
-        - chriswhong
+      loop: "{{ users }}"
+    - name: Remove former users
+      user:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ former_users }}"
     - name: Disallow root SSH access
       lineinfile:
         dest: /etc/ssh/sshd_config
