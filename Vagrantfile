@@ -63,6 +63,12 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
+
+  # install Dokku
+  # http://dokku.viewdocs.io/dokku/getting-started/installation/
+  config.vm.provision "shell", inline: "wget https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh;
+sudo DOKKU_TAG=v0.12.10 bash bootstrap.sh"
+
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
     ansible.playbook = "playbook.yml"

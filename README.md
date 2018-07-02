@@ -20,7 +20,7 @@
 
 To work on the configuration locally:
 
-1. Start the virtual machine.
+1. Start the virtual machine - this will take 5+ minutes. This Vagrant machine is meant to mimic the [DigitalOcean Dokku image](https://www.digitalocean.com/products/one-click-apps/dokku/).
 
     ```shell
     pipenv shell
@@ -30,7 +30,7 @@ To work on the configuration locally:
 1. Run [the Ansible playbook](playbook.yml) to configure the machine.
 
     ```shell
-    vagrant provision
+    vagrant provision --provision-with ansible
     ```
 
 1. When done with development, shut things down.
