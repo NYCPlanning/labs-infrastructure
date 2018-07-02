@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars:
-    ansible_python_interpreter: "/usr/bin/python3"
+    ansible_python_interpreter: /usr/bin/python3
     users:
       - afeld
       - allthesignals
@@ -10,6 +10,7 @@
       - chriswhong
     former_users: []
   roles:
+    - role: andrewsomething.do-agent
     - role: jnv.unattended-upgrades
   handlers:
     - name: Restart SSH
