@@ -15,7 +15,7 @@
   handlers:
     - name: Restart SSH
       service:
-        name: ssh
+        name: sshd
         state: restarted
     - name: Restart Docker
       service:
@@ -36,6 +36,13 @@
         regexp: ^PermitRootLogin
         line: PermitRootLogin no
       notify: Restart SSH
+    - name: Disallow SSH authentication with password
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: ^PasswordAuthentication
+        line: PasswordAuthentication no
+      notify: Restart SSH
+
     - name: Copy in Docker config
       copy:
         src: files/docker-daemon.json
