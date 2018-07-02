@@ -16,7 +16,7 @@
     exit
     ```
 
-## Usage
+## Development
 
 To work on the configuration locally:
 
@@ -37,5 +37,29 @@ To work on the configuration locally:
 
     ```shell
     vagrant suspend
+    exit
+    ```
+
+## Production
+
+To run against a live server:
+
+1. Enable the virtualenv.
+
+    ```shell
+    pipenv shell
+    ```
+
+1. [Create a `hosts` file](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html) in this repository with the connection information.
+    * You may need to change `ansible_user=root` to your personal username after the first run, as the playbook revokes `root`'s access.
+1. Run [the Ansible playbook](playbook.yml) to configure the machine.
+
+    ```shell
+    ansible-playbook -i hosts playbook.yml
+    ```
+
+1. When done with changes, stop the virtualenv.
+
+    ```shell
     exit
     ```

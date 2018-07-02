@@ -1,6 +1,7 @@
 # Ansible
 roles/
 *.retry
+hosts
 
 # Vagrant
 .vagrant/
