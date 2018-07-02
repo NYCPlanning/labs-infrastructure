@@ -1,6 +1,11 @@
 ---
 - hosts: all
   become: true
+  handlers:
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted
   tasks:
     - name: Set up users
       include_tasks: tasks/user.yml
@@ -9,3 +14,9 @@
         - allthesignals
         - andycochran
         - chriswhong
+    - name: Disallow root SSH access
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: ^PermitRootLogin
+        line: PermitRootLogin no
+      notify: Restart SSH
