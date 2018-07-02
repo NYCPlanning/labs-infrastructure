@@ -1,0 +1,9 @@
+- name: Add user for {{ item }}
+  user:
+    name: "{{ item }}"
+    state: present
+    groups: sudo
+- name: Set up SSH keys for {{ item }}
+  authorized_key:
+    user: "{{ item }}"
+    key: https://github.com/{{ item }}.keys

@@ -1,5 +1,11 @@
 ---
 - hosts: all
+  become: true
   tasks:
-    - name: Show connected
-      command: echo "Connected!"
+    - name: Set up users
+      include_tasks: tasks/user.yml
+      loop:
+        - afeld
+        - allthesignals
+        - andycochran
+        - chriswhong
