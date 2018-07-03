@@ -68,10 +68,23 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
 
-  # install Dokku
+  ## install Dokku ##
+  # http://dokku.viewdocs.io/dokku/getting-started/install/debian/#unattended-installation
   # http://dokku.viewdocs.io/dokku/getting-started/installation/
-  config.vm.provision "shell", inline: "wget https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh;
-sudo DOKKU_TAG=v0.12.10 bash bootstrap.sh"
+
+  KEY_DEST = "/tmp/id_rsa.pub"
+  config.vm.provision :file, source: "#{Dir.home}/.ssh/id_rsa.pub", destination: KEY_DEST
+
+  config.vm.provision "shell", inline: <<-SHELL
+  echo "dokku dokku/web_config boolean false" | sudo debconf-set-selections
+  echo "dokku dokku/vhost_enable boolean true" | sudo debconf-set-selections
+  echo "dokku dokku/key_file string #{KEY_DEST}" | sudo debconf-set-selections
+
+  wget https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh
+  sudo DOKKU_TAG=v0.12.10 bash bootstrap.sh
+  SHELL
+
+  ###################
 
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
