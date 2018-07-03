@@ -52,12 +52,25 @@ To run against a live server:
     pipenv shell
     ```
 
-1. [Create a `hosts` file](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html) in this repository with the connection information.
-    * You may need to change `ansible_user=root` to your personal username after the first run, as the playbook revokes `root`'s access.
-1. Run [the Ansible playbook](playbook.yml) to configure the machine.
+1. [Create a DigitalOcean token](https://www.digitalocean.com/docs/api/create-personal-access-token/) with read access.
+1. Save your token to a `digital_ocean.ini` configuration file.
+
+    ```ini
+    [digital_ocean]
+    api_token=TOKEN
+    ```
+
+1. Run [the test Ansible playbook](test.yml) against the Droplets.
 
     ```shell
-    ansible-playbook -i hosts playbook.yml
+    ansible-playbook -i digital_ocean.py -u root test.yml
+    ```
+
+1. You will to use your personal username after the first run, as the playbook revokes `root`'s access.
+1. Run [the real Ansible playbook](playbook.yml) against a particular Droplet by specifying the `DROPLET_NAME`. Remove the `-l DROPLET_NAME` to run against all Droplets.
+
+    ```shell
+    ansible-playbook -i digital_ocean.py -u root -l DROPLET_NAME playbook.yml
     ```
 
 1. When done with changes, stop the virtualenv.
