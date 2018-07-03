@@ -1,5 +1,7 @@
 # Ansible
 roles/
+*.cache
+*.ini
 *.retry
 hosts
 
