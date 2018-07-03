@@ -17,6 +17,13 @@
     ```
 
 1. Do the "Setup SSH Config" step from the [Dokku setup steps](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
+1. [Create a DigitalOcean token](https://www.digitalocean.com/docs/api/create-personal-access-token/) with read access.
+1. Save your token to a `digital_ocean.ini` configuration file.
+
+    ```ini
+    [digital_ocean]
+    api_token=TOKEN
+    ```
 
 ## Development
 
@@ -50,14 +57,6 @@ To run against a live server:
 
     ```shell
     pipenv shell
-    ```
-
-1. [Create a DigitalOcean token](https://www.digitalocean.com/docs/api/create-personal-access-token/) with read access.
-1. Save your token to a `digital_ocean.ini` configuration file.
-
-    ```ini
-    [digital_ocean]
-    api_token=TOKEN
     ```
 
 1. Run playbook(s). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as the playbook revokes `root`'s access.
