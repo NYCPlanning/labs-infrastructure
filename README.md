@@ -27,6 +27,7 @@ To work on the configuration locally:
     vagrant up
     ```
 
+1. Follow the [Dokku setup steps](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/), starting with "Setup SSH Config".
 1. Run [the Ansible playbook](playbook.yml) to configure the machine.
 
     ```shell
