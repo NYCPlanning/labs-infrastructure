@@ -60,18 +60,24 @@ To run against a live server:
     api_token=TOKEN
     ```
 
-1. Run [the test Ansible playbook](test.yml) against the Droplets.
+1. Run playbook(s). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as the playbook revokes `root`'s access.
+    * Test connectivity by running [the test Ansible playbook](test.yml) against the Droplets.
 
-    ```shell
-    ansible-playbook -i digital_ocean.py -u root test.yml
-    ```
+        ```shell
+        ansible-playbook -i digital_ocean.py -u USER test.yml
+        ```
 
-1. You will to use your personal username after the first run, as the playbook revokes `root`'s access.
-1. Run [the real Ansible playbook](playbook.yml) against a particular Droplet by specifying the `DROPLET_NAME`. Remove the `-l DROPLET_NAME` to run against all Droplets.
+    * Configure a Droplet with [the real Ansible playbook](playbook.yml).
 
-    ```shell
-    ansible-playbook -i digital_ocean.py -u root -l DROPLET_NAME playbook.yml
-    ```
+        ```shell
+        ansible-playbook -i digital_ocean.py -u USER -l DROPLET_NAME playbook.yml
+        ```
+
+    * Configure all Droplets with [the real Ansible playbook](playbook.yml).
+
+        ```shell
+        ansible-playbook -i digital_ocean.py -u USER playbook.yml
+        ```
 
 1. When done with changes, stop the virtualenv.
 
