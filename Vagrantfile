@@ -23,7 +23,11 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # https://github.com/dokku/dokku/blob/8fa869fab25b0d485a189bf73d25fb21ffdbf9c4/Vagrantfile#L40-L42
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.hostname = "dokku.me"
+  config.vm.network :private_network, ip: "10.0.0.2"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -64,10 +68,23 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
 
-  # install Dokku
+  ## install Dokku ##
+  # http://dokku.viewdocs.io/dokku/getting-started/install/debian/#unattended-installation
   # http://dokku.viewdocs.io/dokku/getting-started/installation/
-  config.vm.provision "shell", inline: "wget https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh;
-sudo DOKKU_TAG=v0.12.10 bash bootstrap.sh"
+
+  KEY_DEST = "/tmp/id_rsa.pub"
+  config.vm.provision :file, source: "#{Dir.home}/.ssh/id_rsa.pub", destination: KEY_DEST
+
+  config.vm.provision "shell", inline: <<-SHELL
+  echo "dokku dokku/web_config boolean false" | sudo debconf-set-selections
+  echo "dokku dokku/vhost_enable boolean true" | sudo debconf-set-selections
+  echo "dokku dokku/key_file string #{KEY_DEST}" | sudo debconf-set-selections
+
+  wget https://raw.githubusercontent.com/dokku/dokku/v0.12.10/bootstrap.sh
+  sudo DOKKU_TAG=v0.12.10 bash bootstrap.sh
+  SHELL
+
+  ###################
 
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"
