@@ -33,29 +33,7 @@
             state: absent
           loop: "{{ former_users }}"
     - name: SSH configuration
-      block:
-        - name: Disallow root SSH access
-          lineinfile:
-            dest: /etc/ssh/sshd_config
-            regexp: ^PermitRootLogin
-            line: PermitRootLogin no
-          notify: Restart SSH
-        - name: Disallow SSH authentication with password
-          lineinfile:
-            dest: /etc/ssh/sshd_config
-            regexp: ^PasswordAuthentication
-            line: PasswordAuthentication no
-          notify: Restart SSH
-        # this helps ensure that you don't get locked out of the machine
-        - fail:
-            msg: No users are specified
-          when: not users
-        - name: Only allow specified users to SSH
-          lineinfile:
-            dest: /etc/ssh/sshd_config
-            regexp: ^AllowUsers
-            line: AllowUsers {{ 'vagrant ' if ansible_user == 'vagrant' }}{{ users|join(' ') }}
-          notify: Restart SSH
+      include_tasks: tasks/ssh.yml
     - name: Copy in Docker config
       copy:
         src: files/docker-daemon.json
