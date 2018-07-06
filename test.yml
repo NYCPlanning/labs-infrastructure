@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+    - name: Check uptime
+      command: uptime
+      register: result
+    - name: Print uptime output
+      debug:
+        var: result.stdout

@@ -17,6 +17,13 @@
     ```
 
 1. Do the "Setup SSH Config" step from the [Dokku setup steps](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
+1. [Create a DigitalOcean token](https://www.digitalocean.com/docs/api/create-personal-access-token/) with read access.
+1. Save your token to a `digital_ocean.ini` configuration file.
+
+    ```ini
+    [digital_ocean]
+    api_token=TOKEN
+    ```
 
 ## Development
 
@@ -52,13 +59,24 @@ To run against a live server:
     pipenv shell
     ```
 
-1. [Create a `hosts` file](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html) in this repository with the connection information.
-    * You may need to change `ansible_user=root` to your personal username after the first run, as the playbook revokes `root`'s access.
-1. Run [the Ansible playbook](playbook.yml) to configure the machine.
+1. Run playbook(s). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as the playbook revokes `root`'s access.
+    * Test connectivity by running [the test Ansible playbook](test.yml) against the Droplets.
 
-    ```shell
-    ansible-playbook -i hosts playbook.yml
-    ```
+        ```shell
+        ansible-playbook -i digital_ocean.py -u USER test.yml
+        ```
+
+    * Configure a Droplet with [the real Ansible playbook](playbook.yml).
+
+        ```shell
+        ansible-playbook -i digital_ocean.py -u USER -l DROPLET_NAME playbook.yml
+        ```
+
+    * Configure all Droplets with [the real Ansible playbook](playbook.yml).
+
+        ```shell
+        ansible-playbook -i digital_ocean.py -u USER playbook.yml
+        ```
 
 1. When done with changes, stop the virtualenv.
 
