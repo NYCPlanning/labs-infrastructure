@@ -7,3 +7,4 @@
   authorized_key:
     user: "{{ item }}"
     key: https://github.com/{{ item }}.keys
+    exclusive: true
