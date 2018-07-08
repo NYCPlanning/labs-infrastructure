@@ -9,6 +9,9 @@ jobs:
           name: Install Python dependencies
           command: pipenv install
       - run:
+          name: Install Ansible dependencies
+          command: pipenv run ansible-galaxy install -p roles -r requirements.yml
+      - run:
           name: Check Ansible playbook syntax
           command: pipenv run ansible-playbook --syntax-check playbook.yml
 workflows:
