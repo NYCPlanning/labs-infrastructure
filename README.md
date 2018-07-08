@@ -34,7 +34,7 @@ To work on the configuration locally:
     vagrant up
     ```
 
-1. Run [the Ansible playbook](playbook.yml) to configure the machine.
+1. Run [the Ansible playbook](playbooks/base.yml) to configure the machine.
 
     ```shell
     vagrant provision --provision-with ansible
@@ -58,22 +58,22 @@ To run against a live server:
     ```
 
 1. Run playbook(s). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as the playbook revokes `root`'s access.
-    * Test connectivity by running [the test Ansible playbook](test.yml) against the Droplets.
+    * Test connectivity by running [the test Ansible playbook](playbooks/test.yml) against the Droplets.
 
         ```shell
-        ansible-playbook -i digital_ocean.py -u USER test.yml
+        ansible-playbook -i digital_ocean.py -u USER playbooks/test.yml
         ```
 
-    * Configure a Droplet with [the real Ansible playbook](playbook.yml).
+    * Configure a Droplet with [the real Ansible playbook](playbooks/base.yml).
 
         ```shell
-        ansible-playbook -i digital_ocean.py -u USER -l DROPLET_NAME playbook.yml
+        ansible-playbook -i digital_ocean.py -u USER -l DROPLET_NAME playbooks/base.yml
         ```
 
-    * Configure all Droplets with [the real Ansible playbook](playbook.yml).
+    * Configure all Droplets with [the real Ansible playbook](playbooks/base.yml).
 
         ```shell
-        ansible-playbook -i digital_ocean.py -u USER playbook.yml
+        ansible-playbook -i digital_ocean.py -u USER playbooks/base.yml
         ```
 
 1. When done with changes, stop the virtualenv.
@@ -85,10 +85,10 @@ To run against a live server:
 ## Adding users
 
 1. Have them [add their SSH key to their GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
-1. Add GitHub username to the `users` variable in [the playbook](playbook.yml).
+1. Add GitHub username to the `users` variable in [the playbook](playbooks/base.yml).
 1. [Run the playbook.](#production)
 
 ## Removing users
 
-1. Move username from the `users` to `former_users` variable in [the playbook](playbook.yml).
+1. Move username from the `users` to `former_users` variable in [the playbook](playbooks/base.yml).
 1. [Run the playbook.](#production)
