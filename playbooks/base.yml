@@ -22,22 +22,6 @@
         state: restarted
   tasks:
     - name: User management
-      block:
-        # https://stackoverflow.com/a/37334415/358804
-        - name: Allow 'sudo' group to have passwordless sudo
-          lineinfile:
-            dest: /etc/sudoers
-            state: present
-            regexp: '^%sudo'
-            line: '%sudo ALL=(ALL) NOPASSWD: ALL'
-            validate: 'visudo -cf %s'
-        - name: Set up users
-          include_tasks: ../tasks/user.yml
-          loop: "{{ users }}"
-        - name: Remove former users
-          user:
-            name: "{{ item }}"
-            state: absent
-          loop: "{{ former_users }}"
+      include_tasks: ../tasks/users.yml
     - name: SSH configuration
       include_tasks: ../tasks/ssh.yml
