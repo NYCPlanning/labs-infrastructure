@@ -2,12 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: python:3
+      - image: circleci/python:3
     steps:
       - checkout
-      - run:
-          name: Install Pipenv
-          command: pip install pipenv
       - run:
           name: Install Python dependencies
           command: pipenv install
