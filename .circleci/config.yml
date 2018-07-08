@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: python:3
+    steps:
+      - checkout
+      - run:
+          name: Install Pipenv
+          command: pip install pipenv
+      - run:
+          name: Install Python dependencies
+          command: pipenv install
+      - run:
+          name: Check Ansible playbook syntax
+          command: ansible-playbook --syntax-check playbook.yml
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build

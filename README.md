@@ -1,4 +1,4 @@
-# NYC Planning Labs Infrastructure
+# NYC Planning Labs Infrastructure [![CircleCI](https://circleci.com/gh/NYCPlanning/labs-infrastructure.svg?style=svg)](https://circleci.com/gh/NYCPlanning/labs-infrastructure)
 
 ## Setup
 
