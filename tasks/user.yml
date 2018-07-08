@@ -3,6 +3,7 @@
     name: "{{ item }}"
     state: present
     groups: sudo
+    shell: /bin/bash
 - name: Set up SSH keys for {{ item }}
   authorized_key:
     user: "{{ item }}"
