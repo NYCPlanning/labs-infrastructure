@@ -19,5 +19,5 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: ^AllowUsers
-    line: AllowUsers {{ 'vagrant ' if ansible_user == 'vagrant' }}{{ users|join(' ') }}
+    line: AllowUsers {{ 'vagrant ' if ansible_user == 'vagrant' else '' }}{{ users|join(' ') }}
   notify: Restart SSH
