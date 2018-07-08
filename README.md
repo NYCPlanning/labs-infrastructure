@@ -11,9 +11,7 @@
 
     ```shell
     pipenv install
-    pipenv shell
-    ansible-galaxy install -p roles -r requirements.yml
-    exit
+    pipenv run ansible-galaxy install -p roles -r requirements.yml
     ```
 
 1. Do the "Setup SSH Config" step from the [Dokku setup steps](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
