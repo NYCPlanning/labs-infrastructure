@@ -76,6 +76,12 @@ To run against a live server:
         ansible-playbook -i digital_ocean.py -u USER playbooks/base.yml
         ```
 
+    * Configure a [Dokku droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokky playbook](playbooks/dokku.yml).
+
+        ```shell
+        ansible-playbook -i digital_ocean.py -u USER playbooks/dokku.yml
+        ```
+
 1. When done with changes, stop the virtualenv.
 
     ```shell

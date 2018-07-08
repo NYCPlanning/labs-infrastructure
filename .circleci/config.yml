@@ -13,7 +13,7 @@ jobs:
           command: pipenv run ansible-galaxy install -p roles -r requirements.yml
       - run:
           name: Check Ansible playbook syntax
-          command: pipenv run ansible-playbook --syntax-check playbooks/base.yml
+          command: pipenv run ansible-playbook --syntax-check playbooks/base.yml playbooks/dokku.yml playbooks/test.yml
 workflows:
   version: 2
   build:

@@ -1,0 +1,18 @@
+---
+- import_playbook: base.yml
+
+- hosts: all
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  handlers:
+    - name: Restart Docker
+      service:
+        name: docker
+        state: restarted
+  tasks:
+    - name: Copy in Docker config
+      copy:
+        src: ../files/docker-daemon.json
+        dest: /etc/docker/daemon.json
+      notify: Restart Docker

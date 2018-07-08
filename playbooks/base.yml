@@ -17,10 +17,6 @@
       service:
         name: sshd
         state: restarted
-    - name: Restart Docker
-      service:
-        name: docker
-        state: restarted
   tasks:
     - name: User management
       block:
@@ -34,8 +30,3 @@
           loop: "{{ former_users }}"
     - name: SSH configuration
       include_tasks: ../tasks/ssh.yml
-    - name: Copy in Docker config
-      copy:
-        src: ../files/docker-daemon.json
-        dest: /etc/docker/daemon.json
-      notify: Restart Docker
