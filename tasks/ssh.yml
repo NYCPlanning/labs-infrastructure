@@ -3,6 +3,7 @@
     dest: /etc/ssh/sshd_config
     regexp: ^PermitRootLogin
     line: PermitRootLogin no
+  when: disable_root
   notify: Restart SSH
 - name: Disallow SSH authentication with password
   lineinfile:
@@ -20,4 +21,5 @@
     dest: /etc/ssh/sshd_config
     regexp: ^AllowUsers
     line: AllowUsers {{ 'vagrant ' if ansible_user == 'vagrant' else '' }}{{ users|join(' ') }}
+  when: disable_root
   notify: Restart SSH

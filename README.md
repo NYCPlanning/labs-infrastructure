@@ -57,7 +57,7 @@ To run against a live server:
     pipenv shell
     ```
 
-1. Run playbook(s). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as the playbook revokes `root`'s access.
+1. Run playbook(s). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access is deprecated.
     * Test connectivity by running [the test Ansible playbook](playbooks/test.yml) against the Droplets.
 
         ```shell

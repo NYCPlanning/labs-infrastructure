@@ -3,12 +3,15 @@
   become: true
   vars:
     ansible_python_interpreter: /usr/bin/python3
+    disable_root: false
+
     users:
       - afeld
       - allthesignals
       - andycochran
       - chriswhong
     former_users: []
+
   roles:
     - role: andrewsomething.do-agent
     - role: jnv.unattended-upgrades
