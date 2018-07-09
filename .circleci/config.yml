@@ -12,8 +12,11 @@ jobs:
           name: Install Ansible dependencies
           command: pipenv run ansible-galaxy install -p roles -r requirements.yml
       - run:
-          name: Check Ansible playbook syntax
-          command: pipenv run ansible-playbook --syntax-check playbooks/base.yml playbooks/dokku.yml playbooks/test.yml
+          name: Check syntax of Ansible playbooks
+          command: pipenv run ansible-playbook --syntax-check playbooks/*.yml
+      - run:
+          name: Lint the Ansible playbooks
+          command: pipenv run ansible-lint --exclude=roles playbooks/*.yml
 workflows:
   version: 2
   build:
