@@ -17,6 +17,13 @@ jobs:
       - run:
           name: Lint the Ansible playbooks
           command: pipenv run ansible-lint --exclude=roles playbooks/*.yml
+      - run:
+          name: Run the test playbook against all machines
+          # redact IP addresses
+          # https://gist.github.com/afeld/e53ac65e122ccd27547f2d2a54755f8b
+          command: pipenv run ansible-playbook -i digital_ocean.py -u root playbooks/test.yml | sed -E 's/[0-9]+\.[0-9]+\.[0-9]+\.([0-9]+)/███.███.███.\1/g'
+          environment:
+            ANSIBLE_FORCE_COLOR: "True"
 workflows:
   version: 2
   build:
