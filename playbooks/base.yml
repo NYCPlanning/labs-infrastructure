@@ -33,5 +33,5 @@
       register: stat_result
     - name: Alert if reboot required
       fail:
-        msg: Reboot required
+        msg: Reboot required. When you can handle downtime, SSH in and run 'sudo shutdown -r now'.
       when: stat_result.stat.exists
