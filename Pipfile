@@ -6,5 +6,6 @@ name = "pypi"
 [packages]
 ansible = "*"
 requests = "*"
+ansible-lint = "*"
 
 [dev-packages]

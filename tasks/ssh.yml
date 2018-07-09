@@ -13,7 +13,8 @@
   notify: Restart SSH
 
 # failsafe to help ensure that you don't get locked out of the machine
-- fail:
+- name: Fail if no users are specified
+  fail:
     msg: No users are specified
   when: not users
 - name: Only allow specified users to SSH
