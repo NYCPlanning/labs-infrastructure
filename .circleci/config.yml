@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Run the base playbook in check mode against all Droplets
           command: |
-            ansible-playbook -i digital_ocean.py -l ubuntu-test -u deployer -C playbooks/base.yml | \
+            ansible-playbook -i digital_ocean.py -u deployer -C playbooks/base.yml | \
             sed -E 's/[0-9]+\.[0-9]+\.[0-9]+\.([0-9]+)/███.███.███.\1/g'
 workflows:
   version: 2
