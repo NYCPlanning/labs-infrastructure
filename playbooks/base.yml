@@ -25,3 +25,13 @@
       include_tasks: ../tasks/users.yml
     - name: SSH configuration
       include_tasks: ../tasks/ssh.yml
+
+    - name: Check if machine requires reboot
+      stat:
+        # https://askubuntu.com/a/171
+        path: /var/run/reboot-required
+      register: stat_result
+    - name: Alert if reboot required
+      fail:
+        msg: Reboot required
+      when: stat_result.stat.exists
