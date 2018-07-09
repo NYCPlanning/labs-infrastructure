@@ -5,6 +5,7 @@
   tasks:
     - name: Check uptime
       command: uptime
+      changed_when: False
       register: result
     - name: Print uptime output
       debug:
