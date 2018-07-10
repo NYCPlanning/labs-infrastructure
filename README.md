@@ -14,6 +14,11 @@
     pipenv run ansible-galaxy install -p roles -r requirements.yml
     ```
 
+    a. NOTE: You may need to install certificates to avoid an SSL error:
+    ```
+    sudo /Applications/Python\ 3.6/Install\ Certificates.command
+    ```
+
 1. Do the "Setup SSH Config" step from the [Dokku setup steps](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
 1. [Create a DigitalOcean token](https://www.digitalocean.com/docs/api/create-personal-access-token/) with read access.
 1. Save your token to a `digital_ocean.ini` configuration file.
