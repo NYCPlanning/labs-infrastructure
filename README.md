@@ -1,4 +1,11 @@
-# NYC Planning Labs Infrastructure [![CircleCI](https://circleci.com/gh/NYCPlanning/labs-infrastructure.svg?style=svg)](https://circleci.com/gh/NYCPlanning/labs-infrastructure)
+# NYC Planning Labs Infrastructure [![CircleCI](https://circleci.com/gh/NYCPlanning/labs-infrastructure.svg?style=svg&circle-token=b893927d9ce5a4f3b386408a83cc52ba5aa02ef4)](https://circleci.com/gh/NYCPlanning/labs-infrastructure)
+
+This repository contains code and documentation for configuring infrastructure managed by the [NYC Planning Labs](https://planninglabs.nyc/) team. For starters, there are [Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) to configure the [DigitalOcean Droplets](https://www.digitalocean.com/products/droplets/).
+
+## Links
+
+* [DigitalOcean dashboard](https://cloud.digitalocean.com/dashboard?i=266877) (restricted)
+* [Security/devops planning board](https://trello.com/b/35BrYfqh/planning-labs)
 
 ## Setup
 
@@ -14,20 +21,13 @@
     pipenv run ansible-galaxy install -p roles -r requirements.yml
     ```
 
-1. Do the "Setup SSH Config" step from the [Dokku setup steps](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
-1. [Create a DigitalOcean token](https://www.digitalocean.com/docs/api/create-personal-access-token/) with read access.
-1. Save your token to a `digital_ocean.ini` configuration file.
-
-    ```ini
-    [digital_ocean]
-    api_token=TOKEN
-    ```
-
 ## Development
 
-To work on the configuration locally:
+To work on the configuration against a local virtual machine (that mimics a [Dokku Droplet](https://www.digitalocean.com/products/one-click-apps/dokku/)):
 
-1. Start the virtual machine - this will take 5+ minutes. This Vagrant machine is meant to mimic the [DigitalOcean Dokku image](https://www.digitalocean.com/products/one-click-apps/dokku/).
+1. Do the one-time setup.
+    1. Do the "Setup SSH Config" step from the [Dokku setup docs](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
+1. Start the virtual machine - this will take 5+ minutes the first time. This Vagrant machine is meant to mimic the [DigitalOcean Dokku image](https://www.digitalocean.com/products/one-click-apps/dokku/).
 
     ```shell
     pipenv shell
@@ -50,6 +50,15 @@ To work on the configuration locally:
 ## Production
 
 To run against a live server:
+
+1. Do the one-time credential setup.
+    1. [Create a DigitalOcean token](https://www.digitalocean.com/docs/api/create-personal-access-token/) with read access.
+    1. Save your token to a `digital_ocean.ini` configuration file.
+
+        ```ini
+        [digital_ocean]
+        api_token=TOKEN
+        ```
 
 1. Enable the virtualenv.
 
