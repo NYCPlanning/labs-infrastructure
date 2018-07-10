@@ -1,4 +1,11 @@
-# NYC Planning Labs Infrastructure [![CircleCI](https://circleci.com/gh/NYCPlanning/labs-infrastructure.svg?style=svg)](https://circleci.com/gh/NYCPlanning/labs-infrastructure)
+# NYC Planning Labs Infrastructure [![CircleCI](https://circleci.com/gh/NYCPlanning/labs-infrastructure.svg?style=svg&circle-token=b893927d9ce5a4f3b386408a83cc52ba5aa02ef4)](https://circleci.com/gh/NYCPlanning/labs-infrastructure)
+
+This repository contains code and documentation for configuring infrastructure managed by the [NYC Planning Labs](https://planninglabs.nyc/) team. For starters, there are [Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) to configure the [DigitalOcean Droplets](https://www.digitalocean.com/products/droplets/) (virtual machines / servers).
+
+## Links
+
+* [DigitalOcean dashboard](https://cloud.digitalocean.com/dashboard?i=266877) (restricted)
+* [Security/devops planning board](https://trello.com/b/35BrYfqh/planning-labs)
 
 ## Setup
 
