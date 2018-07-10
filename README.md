@@ -66,11 +66,11 @@ To run against a live server:
     pipenv shell
     ```
 
-1. Run playbook(s). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access is deprecated.
-    * Test connectivity by running [the test Ansible playbook](playbooks/test.yml) against the Droplets.
+1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access is deprecated. Examples:
+    * Test connectivity by running [the test Ansible playbook](playbooks/test.yml) against the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
 
         ```shell
-        ansible-playbook -i digital_ocean.py -u USER playbooks/test.yml
+        ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/test.yml
         ```
 
     * Configure a Droplet with [the real Ansible playbook](playbooks/base.yml).
@@ -79,16 +79,16 @@ To run against a live server:
         ansible-playbook -i digital_ocean.py -u USER -l DROPLET_NAME playbooks/base.yml
         ```
 
-    * Configure all Droplets with [the real Ansible playbook](playbooks/base.yml).
+    * Configure all `labs` Droplets with [the real Ansible playbook](playbooks/base.yml).
 
         ```shell
-        ansible-playbook -i digital_ocean.py -u USER playbooks/base.yml
+        ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/base.yml
         ```
 
-    * Configure a [Dokku droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokky playbook](playbooks/dokku.yml).
+    * Configure the [Dokku Droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokku playbook](playbooks/dokku.yml).
 
         ```shell
-        ansible-playbook -i digital_ocean.py -u USER playbooks/dokku.yml
+        ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
         ```
 
 1. When done with changes, stop the virtualenv.
