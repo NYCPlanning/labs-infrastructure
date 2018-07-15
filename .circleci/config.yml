@@ -5,9 +5,21 @@ jobs:
       - image: circleci/python:3
     steps:
       - checkout
+
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v1-{{ .Branch }}-
+            - pip-packages-v1-
       - run:
           name: Install Python dependencies
           command: pipenv install
+      - save_cache:
+          paths:
+            - ~/.local/share/virtualenvs/venv
+          key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+
       - run:
           name: Install Ansible dependencies
           command: pipenv run ansible-galaxy install -p roles -r requirements.yml
@@ -33,9 +45,9 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Install Python dependencies
-          command: pipenv install
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Run the base playbook against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/base.yml
@@ -46,9 +58,9 @@ jobs:
       - ANSIBLE_FORCE_COLOR: "True"
     steps:
       - checkout
-      - run:
-          name: Install Python dependencies
-          command: pipenv install
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Run the checks against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/check.yml
