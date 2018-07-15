@@ -1,10 +1,8 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3
-    environment:
-      - ANSIBLE_FORCE_COLOR: "True"
     steps:
       - checkout
       - run:
@@ -13,6 +11,10 @@ jobs:
       - run:
           name: Install Ansible dependencies
           command: pipenv run ansible-galaxy install -p roles -r requirements.yml
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./*
       - run:
           name: Check syntax of Ansible playbooks
           command: pipenv run ansible-playbook --syntax-check playbooks/*.yml
@@ -25,6 +27,18 @@ jobs:
       - run:
           name: Run the base playbook in check mode against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer -C playbooks/base.yml
+  deploy:
+    docker:
+      - image: circleci/python:3
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install Python dependencies
+          command: pipenv install
+      - run:
+          name: Run the base playbook against all Droplets
+          command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/base.yml
   check:
     docker:
       - image: circleci/python:3
@@ -40,9 +54,15 @@ jobs:
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/check.yml
 workflows:
   version: 2
-  build:
+  test_and_deploy:
     jobs:
-      - build
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
   nightly:
     triggers:
       - schedule:
