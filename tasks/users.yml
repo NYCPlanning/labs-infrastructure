@@ -15,3 +15,13 @@
     name: "{{ item }}"
     state: absent
   loop: "{{ former_users }}"
+
+- name: Add deployer user
+  user:
+    name: deployer
+    groups: sudo
+- name: Set up SSH key for deployer
+  authorized_key:
+    user: deployer
+    key: "{{ lookup('file', '../files/deployer.pub') }}"
+    exclusive: true

@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/python:3
+    environment:
+      - ANSIBLE_FORCE_COLOR: "True"
     steps:
       - checkout
       - run:
@@ -17,6 +19,12 @@ jobs:
       - run:
           name: Lint the Ansible playbooks
           command: pipenv run ansible-lint --exclude=roles playbooks/*.yml
+      - run:
+          name: Run the test playbook against all Droplets
+          command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/test.yml
+      - run:
+          name: Run the base playbook in check mode against all Droplets
+          command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer -C playbooks/base.yml
 workflows:
   version: 2
   build:
