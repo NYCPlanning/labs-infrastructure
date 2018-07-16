@@ -3,26 +3,5 @@
   become: true
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    disable_root: false
-
-    users:
-      - afeld
-      - allthesignals
-      - andycochran
-      - chriswhong
-      - trbmcginnis
-    former_users: []
-
   roles:
-    - role: andrewsomething.do-agent
-    - role: jnv.unattended-upgrades
-  handlers:
-    - name: Restart SSH
-      service:
-        name: sshd
-        state: restarted
-  tasks:
-    - name: User management
-      include_tasks: ../tasks/users.yml
-    - name: SSH configuration
-      include_tasks: ../tasks/ssh.yml
+    - role: common
