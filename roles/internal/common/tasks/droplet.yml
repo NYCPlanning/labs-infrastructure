@@ -1,23 +1,22 @@
 # digital_ocean module doesn't handle a change in backups_enabled, so do it manually
-- name: Get Droplet information
-  uri:
-    url: https://api.digitalocean.com/v2/droplets/{{ do_id }}
-    headers:
-      Authorization: Bearer {{ lookup('env', 'DO_API_TOKEN') }}
+- block:
+    - name: Get Droplet information
+      uri:
+        url: https://api.digitalocean.com/v2/droplets/{{ do_id }}
+        headers:
+          Authorization: Bearer {{ lookup('env', 'DO_API_TOKEN') }}
+      register: droplet_info
+    - name: Enable backups on Droplet
+      uri:
+        url: https://api.digitalocean.com/v2/droplets/{{ do_id }}/actions
+        method: POST
+        headers:
+          Authorization: Bearer {{ lookup('env', 'DO_API_TOKEN') }}
+        body_format: json
+        body:
+          type: enable_backups
+        status_code: 201
+      when: "'backups' not in droplet_info.json.droplet.features"
+      changed_when: true
   delegate_to: localhost
   become: false
-  register: droplet_info
-- name: Enable backups on Droplet
-  uri:
-    url: https://api.digitalocean.com/v2/droplets/{{ do_id }}/actions
-    method: POST
-    headers:
-      Authorization: Bearer {{ lookup('env', 'DO_API_TOKEN') }}
-    body_format: json
-    body:
-      type: enable_backups
-    status_code: 201
-  delegate_to: localhost
-  become: false
-  when: "'backups' not in droplet_info.json.droplet.features"
-  changed_when: "'backups' not in droplet_info.json.droplet.features"
