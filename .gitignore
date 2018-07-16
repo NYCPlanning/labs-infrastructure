@@ -1,5 +1,5 @@
 # Ansible
-roles/
+roles/external/
 *.cache
 *.ini
 *.retry

@@ -22,11 +22,12 @@ jobs:
 
       - run:
           name: Install Ansible dependencies
-          command: pipenv run ansible-galaxy install -p roles -r requirements.yml
+          command: pipenv run ansible-galaxy install -p roles/external -r requirements.yml
       - persist_to_workspace:
           root: .
           paths:
             - ./*
+
       - run:
           name: Check syntax of Ansible playbooks
           command: pipenv run ansible-playbook --syntax-check playbooks/*.yml

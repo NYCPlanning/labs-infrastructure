@@ -24,7 +24,7 @@ This repository contains code and documentation for configuring infrastructure m
 
     ```shell
     pipenv install
-    pipenv run ansible-galaxy install -p roles -r requirements.yml
+    pipenv run ansible-galaxy install -p roles/external -r requirements.yml
     ```
 
 ## Development
