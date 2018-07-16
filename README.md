@@ -11,6 +11,12 @@ This repository contains code and documentation for configuring infrastructure m
 
 1. Install dependencies.
     * Python 3
+        * NOTE: You may need to install certificates to avoid an SSL error:
+
+            ```shell
+            sudo /Applications/Python\ 3.6/Install\ Certificates.command
+            ```
+
     * [Pipenv](https://docs.pipenv.org)
     * [Vagrant](https://www.vagrantup.com/)
     * [Virtualbox](https://www.virtualbox.org/)
