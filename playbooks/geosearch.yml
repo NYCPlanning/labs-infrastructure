@@ -8,16 +8,14 @@
     - role: common
     - role: docker
   tasks:
-    - name: Clone repository
-      git:
-        repo: https://github.com/NYCPlanning/labs-geosearch-dockerfiles.git
-        dest: "{{ checkout_dir }}"
-
-    - name: Install Pip
+    - name: Install packages
       apt:
-        name: python3-pip
+        name:
+          - docker-ce
+          - python3-pip
         update_cache: true
         state: latest
+
     - name: Upgrade Pip
       pip:
         name: pip
@@ -26,6 +24,11 @@
       pip:
         name: docker-compose
         state: latest
+
+    - name: Clone repository
+      git:
+        repo: https://github.com/NYCPlanning/labs-geosearch-dockerfiles.git
+        dest: "{{ checkout_dir }}"
 
     - name: Start Elasticsearch
       docker_service:
