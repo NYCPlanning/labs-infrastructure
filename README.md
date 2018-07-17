@@ -33,23 +33,23 @@ To work on the configuration against a local virtual machine (that mimics a [Dok
 
 1. Do the one-time setup.
     1. Do the "Setup SSH Config" step from the [Dokku setup docs](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
-1. Start the virtual machine - this will take 5+ minutes the first time.
+1. Start the virtual machine, with a `MACHINE` of `dokku` or `geosearch`. This will take 5+ minutes the first time.
 
     ```shell
     pipenv shell
-    vagrant up dokku
+    vagrant up MACHINE
     ```
 
 1. Run [the Ansible playbook](playbooks/base.yml) to configure the machine. You can do this repeatedly as you make changes to the Ansible code.
 
     ```shell
-    vagrant provision dokku
+    vagrant provision MACHINE --provision-with ansible
     ```
 
 1. When done with development, shut things down.
 
     ```shell
-    vagrant suspend dokku
+    vagrant suspend MACHINE
     exit
     ```
 
