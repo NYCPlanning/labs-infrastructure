@@ -1,3 +1,5 @@
+- name: Droplet configuration
+  include_tasks: droplet.yml
 - name: User management
   include_tasks: users.yml
 - name: SSH configuration

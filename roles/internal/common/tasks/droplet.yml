@@ -1,0 +1,30 @@
+- name: Check for DO_API_TOKEN
+  fail:
+    msg: DO_API_TOKEN not set
+  when: not lookup('env', 'DO_API_TOKEN')
+# digital_ocean module doesn't handle a change in backups_enabled, so do it manually
+- block:
+    - name: Get Droplet information
+      uri:
+        url: https://api.digitalocean.com/v2/droplets/{{ do_id }}
+        headers:
+          Authorization: Bearer {{ lookup('env', 'DO_API_TOKEN') }}
+      register: droplet_info
+      # this task is read-only, so run even in check mode
+      check_mode: false
+    - name: Enable backups on Droplet
+      uri:
+        # https://developers.digitalocean.com/documentation/v2/#enable-backups
+        url: https://api.digitalocean.com/v2/droplets/{{ do_id }}/actions
+        method: POST
+        headers:
+          Authorization: Bearer {{ lookup('env', 'DO_API_TOKEN') }}
+        body_format: json
+        body:
+          type: enable_backups
+        status_code: 201
+      # only if not previously enabled
+      when: "'backups' not in droplet_info.json.droplet.features"
+      changed_when: true
+  delegate_to: localhost
+  become: false

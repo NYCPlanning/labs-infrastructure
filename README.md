@@ -72,6 +72,12 @@ To run against a live server:
     pipenv shell
     ```
 
+1. Set the Digital Ocean environment variable. _This is required because Digital Ocean modules can't read from the `digital_ocean.ini` file._
+
+    ```shell
+    export $(./digital_ocean.py --env)
+    ```
+
 1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access is deprecated. Examples:
     * Test connectivity by running [the test Ansible playbook](playbooks/test.yml) against the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
 
