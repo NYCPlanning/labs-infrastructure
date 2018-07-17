@@ -72,7 +72,7 @@ To run against a live server:
     pipenv shell
     ```
 
-1. Set the Digital Ocean environment variable.
+1. Set the Digital Ocean environment variable. _This is required because Digital Ocean modules can't read from the `digital_ocean.ini` file._
 
     ```shell
     export $(./digital_ocean.py --env)
