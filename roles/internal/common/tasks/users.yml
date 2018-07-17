@@ -8,7 +8,7 @@
     validate: 'visudo -cf %s'
 
 - name: Set up users
-  include_tasks: ../tasks/user.yml
+  include_tasks: user.yml
   loop: "{{ users }}"
 - name: Remove former users
   user:

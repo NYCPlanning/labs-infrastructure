@@ -1,0 +1,4 @@
+- name: User management
+  include_tasks: users.yml
+- name: SSH configuration
+  include_tasks: ssh.yml
