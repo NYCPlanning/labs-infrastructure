@@ -9,16 +9,16 @@ jobs:
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
-            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-v1-{{ .Branch }}-
-            - pip-packages-v1-
+            - pip-packages-v2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v2-{{ .Branch }}-
+            - pip-packages-v2-
       - run:
           name: Install Python dependencies
           command: pipenv install
       - save_cache:
           paths:
-            - ~/.local/share/virtualenvs/venv
-          key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - ~/.local/share/virtualenvs
+          key: pip-packages-v2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
 
       - run:
           name: Install Ansible dependencies
@@ -48,7 +48,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Run the base playbook against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/base.yml
@@ -61,7 +61,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Run the checks against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/check.yml
