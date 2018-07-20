@@ -85,4 +85,7 @@ workflows:
               only:
                 - master
     jobs:
-      - check
+      - deploy
+      - check:
+          requires:
+            - deploy
