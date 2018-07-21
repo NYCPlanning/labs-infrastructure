@@ -3,6 +3,7 @@
   become: true
   vars:
     ansible_python_interpreter: python3
+    check_url: http://localhost:4000/v1/autocomplete?text=foo
     checkout_dir: /srv/checkout
     repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
     run_import: false
@@ -37,13 +38,23 @@
         src: ../../labs-geosearch-dockerfiles
         dest: "{{ checkout_dir }}"
 
+    - name: Check that the API is available
+      uri:
+        url: "{{ check_url }}"
+      ignore_errors: true
+      register: api_results
+
     - name: Start the server
       command: ./build.sh
       args:
         chdir: "{{ repo_dir }}"
       environment:
         DATA_DIR: /srv
-      # TODO conditional?
+      when: api_results is failed
+
+    - name: Check that the API is available
+      uri:
+        url: "{{ check_url }}"
 
     - name: Run the import
       command: ./import-pad.sh
