@@ -5,6 +5,7 @@
     ansible_python_interpreter: python3
     checkout_dir: /srv/checkout
     repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
+    run_import: false
   roles:
     - role: common
     - role: docker
@@ -43,3 +44,11 @@
       environment:
         DATA_DIR: /srv
       # TODO conditional?
+
+    - name: Run the import
+      command: ./import-pad.sh
+      args:
+        chdir: "{{ repo_dir }}"
+      # environment:
+      #   SLACK_WEBHOOK_URL: ...
+      when: run_import
