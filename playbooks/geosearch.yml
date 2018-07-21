@@ -4,9 +4,10 @@
   vars:
     ansible_python_interpreter: python3
     checkout_dir: /srv/checkout
-  # roles:
-  #   - role: common
-  #   - role: docker
+    repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
+  roles:
+    - role: common
+    - role: docker
   tasks:
     - name: Install packages
       apt:
@@ -29,27 +30,16 @@
     #   git:
     #     repo: https://github.com/NYCPlanning/labs-geosearch-dockerfiles.git
     #     dest: "{{ checkout_dir }}"
+    # uncomment for local development
     - name: Copy repository
       synchronize:
         src: ../../labs-geosearch-dockerfiles
         dest: "{{ checkout_dir }}"
 
-    - name: Start Elasticsearch
-      docker_service:
-        project_src: "{{ checkout_dir }}"
-        services:
-          - elasticsearch
-        build: true
-
-    - name: Create the schema
-      command: docker-compose run --rm schema npm run create_index
+    - name: Start the server
+      command: ./build.sh
       args:
-        chdir: "{{ checkout_dir }}"
+        chdir: "{{ repo_dir }}"
+      environment:
+        DATA_DIR: /srv
       # TODO conditional?
-
-    - name: Start API
-      docker_service:
-        project_src: "{{ checkout_dir }}"
-        services:
-          - api
-        build: true
