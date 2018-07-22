@@ -1,0 +1,5 @@
+# Required
+# certbot_domains: []
+
+# Optional
+certbot_email: aidan.feldman@gmail.com

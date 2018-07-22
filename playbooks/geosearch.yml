@@ -6,6 +6,9 @@
     productiondomain: geosearch.afeld.me
 
     ansible_python_interpreter: python3
+    certbot_domains:
+      - "{{ documentationdomain }}"
+      - "{{ productiondomain }}"
     check_url: http://localhost:4000/v1/autocomplete?text=foo
     checkout_dir: /srv/checkout
     repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
@@ -99,3 +102,7 @@
       with_items:
         - 80
         - 443
+
+    - name: Set up certbot
+      include_role:
+        name: certbot
