@@ -103,10 +103,10 @@ To run against a live server:
         ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
         ```
 
-    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml). Note you'll need a domain pointing to the instance in advance.
+    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml). Note you'll need a `DOMAIN` pointing to the instance in advance.
 
         ```shell
-        ansible-playbook -i digital_ocean.py -l geosearch-test -u USER -e documentationdomain=geosearch-docs.DOMAIN -e productiondomain=geosearch.DOMAIN playbooks/geosearch.yml
+        ansible-playbook -i digital_ocean.py -l geosearch-test -u USER -e productiondomain=DOMAIN playbooks/geosearch.yml
         ```
 
 1. When done with changes, stop the virtualenv.
