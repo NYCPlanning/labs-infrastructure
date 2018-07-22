@@ -3,6 +3,21 @@
   become: true
   vars:
     ansible_python_interpreter: python3
+    dokku_key_file: /home/{{ ansible_user }}/.ssh/id_rsa.pub
+    dokku_plugin:
+      - name: apt
+        url: https://github.com/F4-Group/dokku-apt.git
+      - name: letsencrypt
+        url: https://github.com/dokku/dokku-letsencrypt.git
+      - name: nginx-cache
+        url: https://github.com/koalalorenzo/dokku-nginx-cache.git
+      - name: postgres
+        url: https://github.com/dokku/dokku-postgres.git
+      - name: slack
+        url: https://github.com/ribot/dokku-slack.git
+    dokku_vhost_enable: true
+    dokku_web_config: false
   roles:
     - role: common
     - role: docker
+    - role: znz.dokku
