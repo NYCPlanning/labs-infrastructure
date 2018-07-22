@@ -13,22 +13,15 @@
     checkout_dir: /srv/checkout
     repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
     run_import: false
-  handlers:
-    - name: Check nginx config
-      command: nginx -t -c /etc/nginx/nginx.conf
-    - name: Reload nginx
-      service:
-        name: nginx
-        state: reloaded
   roles:
     - role: common
     - role: docker
+    - role: nginx
   tasks:
     - name: Install packages
       apt:
         name:
           - docker-ce
-          - nginx
           - python3-pip
         update_cache: true
         state: latest
