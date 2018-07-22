@@ -90,3 +90,12 @@
       notify:
         - Check nginx config
         - Reload nginx
+
+    - name: Allow HTTP(S) connections
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      with_items:
+        - 80
+        - 443
