@@ -1,5 +1,6 @@
 - name: Droplet configuration
   include_tasks: droplet.yml
+  when: ansible_user != 'vagrant'
 - name: User management
   include_tasks: users.yml
 - name: SSH configuration
