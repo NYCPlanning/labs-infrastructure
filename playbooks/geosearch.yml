@@ -78,15 +78,6 @@
         - Check nginx config
         - Reload nginx
 
-    - name: Allow HTTP(S) connections
-      ufw:
-        rule: allow
-        port: "{{ item }}"
-        proto: tcp
-      with_items:
-        - 80
-        - 443
-
     - name: Set up certbot
       include_role:
         name: certbot
