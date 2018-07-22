@@ -35,7 +35,7 @@ jobs:
           command: pipenv run ansible-playbook --syntax-check playbooks/*.yml
       - run:
           name: Lint the Ansible playbooks
-          command: pipenv run ansible-lint --exclude=roles playbooks/*.yml
+          command: pipenv run ansible-lint --exclude=roles/external playbooks/*.yml
       - run:
           name: Run the test playbook against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/test.yml
