@@ -11,3 +11,6 @@
     update_cache: true
 - name: Install certificates
   command: certbot --nginx -n --agree-tos --expand --email {{ certbot_email }} --domains {{ certbot_domains|join(',') }} certonly
+  tags:
+    # certbot command is idempotent
+    - skip_ansible_lint
