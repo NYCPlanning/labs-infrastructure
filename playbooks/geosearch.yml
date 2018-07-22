@@ -2,8 +2,8 @@
 - hosts: all
   become: true
   vars:
-    documentationdomain: geosearch-docs.afeld.me
-    productiondomain: geosearch.afeld.me
+    documentationdomain: geosearch-docs.planninglabs.nyc
+    productiondomain: geosearch.planninglabs.nyc
 
     ansible_python_interpreter: python3
     certbot_domains:
