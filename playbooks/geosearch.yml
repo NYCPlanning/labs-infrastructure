@@ -2,11 +2,21 @@
 - hosts: all
   become: true
   vars:
+    documentationdomain: geosearch-docs.afeld.me
+    productiondomain: geosearch.afeld.me
+
     ansible_python_interpreter: python3
     check_url: http://localhost:4000/v1/autocomplete?text=foo
     checkout_dir: /srv/checkout
     repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
     run_import: false
+  handlers:
+    - name: Check nginx config
+      command: nginx -t -c /etc/nginx/nginx.conf
+    - name: Reload nginx
+      service:
+        name: nginx
+        state: reloaded
   roles:
     - role: common
     - role: docker
@@ -15,6 +25,7 @@
       apt:
         name:
           - docker-ce
+          - nginx
           - python3-pip
         update_cache: true
         state: latest
@@ -63,3 +74,19 @@
       # environment:
       #   SLACK_WEBHOOK_URL: ...
       when: run_import
+
+    # https://stackoverflow.com/a/33173605/358804
+    - name: Fetch nginx template
+      fetch:
+        src: "{{ repo_dir }}/nginx.conf"
+        dest: /tmp/nginx.conf
+        flat: true
+        fail_on_missing: true
+      run_once: true
+    - name: Add nginx config
+      template:
+        src: /tmp/nginx.conf
+        dest: /etc/nginx/conf.d/geosearch.conf
+      notify:
+        - Check nginx config
+        - Reload nginx
