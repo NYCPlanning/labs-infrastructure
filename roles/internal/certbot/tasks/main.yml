@@ -14,3 +14,10 @@
   tags:
     # certbot command is idempotent
     - skip_ansible_lint
+
+- name: Ensure server(s) are restarted
+  meta: flush_handlers
+
+- name: Test domains
+  uri:
+    url: "{{ remote_check_url }}"

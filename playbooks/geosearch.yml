@@ -9,7 +9,9 @@
     certbot_domains:
       - "{{ documentationdomain }}"
       - "{{ productiondomain }}"
-    check_url: http://localhost:4000/v1/autocomplete?text=foo
+    check_path: /v1/autocomplete?text=foo
+    local_check_url: http://localhost:4000{{ check_path }}
+    remote_check_url: "https://{{ productiondomain }}{{ check_path }}"
     checkout_dir: /srv/checkout
     repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
     run_import: false
@@ -38,7 +40,7 @@
 
     - name: Check that the API is available
       uri:
-        url: "{{ check_url }}"
+        url: "{{ local_check_url }}"
       ignore_errors: true
       register: api_results
 
@@ -52,7 +54,7 @@
 
     - name: Check that the API is available
       uri:
-        url: "{{ check_url }}"
+        url: "{{ local_check_url }}"
 
     - name: Run the import
       command: ./import-pad.sh
