@@ -31,7 +31,10 @@ Vagrant.configure("2") do |config|
   # mimic the DigitalOcean Docker image
   # https://www.digitalocean.com/products/one-click-apps/docker/
   config.vm.define "geosearch", autostart: false do |geosearch|
-    geosearch.vm.provision "shell", path: "scripts/install_docker.sh"
+    geosearch.vm.provision "ansible" do |ansible|
+      ansible.verbose = "v"
+      ansible.playbook = "playbooks/docker.yml"
+    end
 
     geosearch.vm.provision "ansible" do |ansible|
       ansible.verbose = "v"
