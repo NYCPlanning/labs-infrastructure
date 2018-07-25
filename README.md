@@ -43,7 +43,7 @@ To work on the configuration against a local virtual machine (that mimics a [Dok
 1. Run [the Ansible playbook](playbooks/base.yml) to configure the machine.
 
     ```shell
-    vagrant provision --provision-with ansible
+    vagrant provision
     ```
 
 1. When done with development, shut things down.

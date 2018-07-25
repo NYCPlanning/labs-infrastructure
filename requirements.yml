@@ -1,2 +1,4 @@
 - src: andrewsomething.do-agent
+- src: geerlingguy.docker
 - src: jnv.unattended-upgrades
+- src: znz.dokku
