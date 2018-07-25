@@ -78,7 +78,7 @@ To run against a live server:
     export $(./digital_ocean.py --env)
     ```
 
-1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access is deprecated. Examples:
+1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access gets removed. Examples:
     * Test connectivity by running [the test Ansible playbook](playbooks/test.yml) against the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
 
         ```shell
