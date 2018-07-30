@@ -50,9 +50,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - restore_cache:
-          keys:
-            - pip-packages-v2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Run the base playbook against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/base.yml
@@ -62,10 +59,8 @@ jobs:
     environment:
       - ANSIBLE_FORCE_COLOR: "True"
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - pip-packages-v2-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Run the checks against all Droplets
           command: pipenv run ansible-playbook -i digital_ocean.py -l labs -u deployer playbooks/check.yml
@@ -89,7 +84,10 @@ workflows:
               only:
                 - master
     jobs:
-      - deploy
+      - test
+      - deploy:
+          requires:
+            - test
       - check:
           requires:
             - deploy
