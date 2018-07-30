@@ -1,24 +1,14 @@
-- name: Disallow root SSH access
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: ^PermitRootLogin
-    line: PermitRootLogin no
-  notify: Restart SSH
-- name: Disallow SSH authentication with password
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: ^PasswordAuthentication
-    line: PasswordAuthentication no
-  notify: Restart SSH
-
 # failsafe to help ensure that you don't get locked out of the machine
 - name: Fail if no users are specified
   fail:
     msg: No users are specified
   when: not users
-- name: Only allow specified users to SSH
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: ^AllowUsers
-    line: AllowUsers deployer {{ users|join(' ') }}
-  notify: Restart SSH
+
+- name: Harden SSH configuration
+  include_role:
+    name: dev-sec.ssh-hardening
+  vars:
+    ssh_allow_users: deployer {{ users|join(' ') }}
+    # just to be safe
+    ssh_max_auth_retries: 100
+    ssh_print_motd: true
