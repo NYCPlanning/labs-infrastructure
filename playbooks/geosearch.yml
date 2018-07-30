@@ -74,7 +74,7 @@
     - name: Add nginx config
       template:
         src: /tmp/nginx.conf
-        dest: /etc/nginx/conf.d/geosearch.conf
+        dest: /etc/nginx/conf.d/{{ productiondomain }}.conf
       notify:
         - Check nginx config
         - Reload nginx
