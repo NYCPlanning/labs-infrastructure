@@ -1,0 +1,10 @@
+- name: Install nginx
+  apt:
+    name:
+      - nginx
+    update_cache: true
+
+- name: Allow HTTP(S) connections through firewall
+  ufw:
+    rule: allow
+    name: Nginx Full

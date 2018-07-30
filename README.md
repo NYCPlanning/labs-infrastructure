@@ -33,23 +33,23 @@ To work on the configuration against a local virtual machine (that mimics a [Dok
 
 1. Do the one-time setup.
     1. Do the "Setup SSH Config" step from the [Dokku setup docs](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
-1. Start the virtual machine - this will take 5+ minutes the first time. This Vagrant machine is meant to mimic the [DigitalOcean Dokku image](https://www.digitalocean.com/products/one-click-apps/dokku/).
+1. Start the virtual machine, with a `MACHINE` of `dokku` or `geosearch`. This will take 5+ minutes the first time.
 
     ```shell
     pipenv shell
-    vagrant up
+    vagrant up MACHINE
     ```
 
-1. Run [the Ansible playbook](playbooks/base.yml) to configure the machine.
+1. Run [the Ansible playbook](playbooks/base.yml) to configure the machine. You can do this repeatedly as you make changes to the Ansible code.
 
     ```shell
-    vagrant provision
+    vagrant provision MACHINE
     ```
 
 1. When done with development, shut things down.
 
     ```shell
-    vagrant suspend
+    vagrant suspend MACHINE
     exit
     ```
 
@@ -101,6 +101,12 @@ To run against a live server:
 
         ```shell
         ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
+        ```
+
+    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml). Note you'll need a `DOMAIN` pointing to the instance in advance.
+
+        ```shell
+        ansible-playbook -i digital_ocean.py -l geosearch-test -u USER -e productiondomain=DOMAIN playbooks/geosearch.yml
         ```
 
 1. When done with changes, stop the virtualenv.
