@@ -101,3 +101,21 @@ To run against a live server:
 
 1. Move username from the `users` to `former_users` variable in [the variables file](roles/internal/common/defaults/main.yml).
 1. [Run the playbook.](#production)
+
+## Server checklist
+
+Every server/Droplet should:
+
+1. [ ] Be [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with [`labs`](https://cloud.digitalocean.com/tags/labs?i=266877)
+1. [ ] Have a [Cloud Firewall](https://www.digitalocean.com/docs/networking/firewalls/) and/or [`ufw`](https://help.ubuntu.com/community/UFW) enabled
+    * Use as restrictive of [rules](https://www.digitalocean.com/docs/networking/firewalls/how-to/configure-rules/) as possible
+    * Use [private networking](https://www.digitalocean.com/docs/networking/private-networking/) where possible
+1. [ ] Have an Ansible playbook with the [`common`](roles/internal/common) role
+1. [ ] Have instructions to recreate from scratch, ideally with one `ansible-playbook` command (infrastructure as code)
+1. [ ] Have [smoke tests](http://softwaretestingfundamentals.com/smoke-testing/) in the playbook, by using things like Ansible's [`uri`](https://docs.ansible.com/ansible/latest/modules/uri_module.html) module to ensure that an API responds
+1. [ ] Have automated database backups (if applicable)
+1. [ ] Have modifications tested agaist a non-production server, and then submitted as pull requests
+1. [ ] Have credentials for talking to external services with the [least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) possible (if applicable)
+1. [ ] Have the services/containers/etc. start properly after machine reboot, which needs to be tested manually
+
+Be careful not to check secrets into this repository.
