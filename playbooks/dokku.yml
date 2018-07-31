@@ -2,7 +2,6 @@
 - hosts: all
   become: true
   vars:
-    ansible_python_interpreter: python3
     dokku_key_file: /home/{{ ansible_user }}/.ssh/id_rsa.pub
     dokku_plugin:
       - name: apt

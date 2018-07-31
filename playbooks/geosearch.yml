@@ -5,7 +5,6 @@
     documentationdomain: geosearch-docs.planninglabs.nyc
     productiondomain: geosearch.planninglabs.nyc
 
-    ansible_python_interpreter: python3
     certbot_domains:
       - "{{ productiondomain }}"
     check_path: /v1/autocomplete?text=foo
