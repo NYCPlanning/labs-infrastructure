@@ -5,3 +5,5 @@ users:
   - chriswhong
   - trbmcginnis
 former_users: []
+
+ssh_allow_users: deployer dokku {{ users|join(' ') }}
