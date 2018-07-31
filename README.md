@@ -51,10 +51,10 @@ To run against a live server:
     ```
 
 1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access gets removed. Examples:
-    * Test connectivity by running [the test Ansible playbook](playbooks/test.yml) against the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
+    * Test connectivity to the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
 
         ```shell
-        ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/test.yml
+        ansible labs -i digital_ocean.py -u USER -m command --args uptime
         ```
 
     * Configure a Droplet with [the real Ansible playbook](playbooks/base.yml).
