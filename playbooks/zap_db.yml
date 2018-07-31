@@ -24,4 +24,6 @@
           - "5433:5432"
         restart_policy: always
         volumes:
-          - /var/lib/postgresql/data
+          # existing volume with the data, which unfortunately can't be renamed
+          # https://github.com/moby/moby/issues/31154
+          - 820fde1854986ed40034d12bde2befa84b95693f5ecc81cdd7bbbac84ece4a58:/var/lib/postgresql/data
