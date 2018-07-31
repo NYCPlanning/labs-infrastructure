@@ -18,8 +18,6 @@ This repository contains code and documentation for configuring infrastructure m
             ```
 
     * [Pipenv](https://docs.pipenv.org)
-    * [Vagrant](https://www.vagrantup.com/)
-    * [Virtualbox](https://www.virtualbox.org/)
 1. Install Ansible and its dependencies.
 
     ```shell
@@ -27,33 +25,7 @@ This repository contains code and documentation for configuring infrastructure m
     pipenv run ansible-galaxy install -p roles/external -r requirements.yml
     ```
 
-## Development
-
-To work on the configuration against a local virtual machine (that mimics a [Dokku Droplet](https://www.digitalocean.com/products/one-click-apps/dokku/)):
-
-1. Do the one-time setup.
-    1. Do the "Setup SSH Config" step from the [Dokku setup docs](http://dokku.viewdocs.io/dokku/getting-started/install/vagrant/).
-1. Start the virtual machine, with a `MACHINE` of `dokku` or `geosearch`. This will take 5+ minutes the first time.
-
-    ```shell
-    pipenv shell
-    vagrant up MACHINE
-    ```
-
-1. Run [the Ansible playbook](playbooks/base.yml) to configure the machine. You can do this repeatedly as you make changes to the Ansible code.
-
-    ```shell
-    vagrant provision MACHINE
-    ```
-
-1. When done with development, shut things down.
-
-    ```shell
-    vagrant suspend MACHINE
-    exit
-    ```
-
-## Production
+## Usage
 
 To run against a live server:
 

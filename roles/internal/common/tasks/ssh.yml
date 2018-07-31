@@ -20,5 +20,5 @@
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: ^AllowUsers
-    line: AllowUsers deployer {{ 'vagrant ' if ansible_user == 'vagrant' else '' }}{{ users|join(' ') }}
+    line: AllowUsers deployer {{ users|join(' ') }}
   notify: Restart SSH
