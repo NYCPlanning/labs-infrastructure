@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: true
+  vars:
+    ansible_python_interpreter: python3
+  roles:
+    - role: common
+    - role: docker
+  tasks:
+    - name: Install pip and psql
+      apt:
+        name:
+          - postgresql-client
+          - python3-pip
+        update_cache: true
+    - name: Install docker-py
+      pip:
+        name: docker-py
+    - name: Start PostGIS container
+      docker_container:
+        name: zap-postgis
+        image: mdillon/postgis
+        ports:
+          - "5433:5432"
+        restart_policy: always
+        volumes:
+          - /var/lib/postgresql/data
