@@ -1,6 +1,10 @@
 # NYC Planning Labs Infrastructure [![CircleCI](https://circleci.com/gh/NYCPlanning/labs-infrastructure.svg?style=svg&circle-token=b893927d9ce5a4f3b386408a83cc52ba5aa02ef4)](https://circleci.com/gh/NYCPlanning/labs-infrastructure)
 
-This repository contains code and documentation for configuring infrastructure managed by the [NYC Planning Labs](https://planninglabs.nyc/) team. For starters, there are [Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) to configure the [DigitalOcean Droplets](https://www.digitalocean.com/products/droplets/).
+This repository contains code and documentation for configuring infrastructure managed by the [NYC Planning Labs](https://planninglabs.nyc/) team. The parts that get modified most frequently:
+
+* [`playbooks/`](playbooks): [Ansible playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html) to configure [DigitalOcean Droplets](https://www.digitalocean.com/products/droplets/)
+* [`roles/internal/`](roles/internal): Custom [Ansible roles](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html) for code shared across playbooks
+* [`requirements.yml`](requirements.yml): [List of third-party Ansible roles](https://docs.ansible.com/ansible/latest/reference_appendices/galaxy.html#installing-multiple-roles-from-a-file), which get installed to `roles/external/`
 
 ## Links
 
