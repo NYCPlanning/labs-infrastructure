@@ -80,10 +80,14 @@ To run against a live server:
         ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
         ```
 
-    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml). Note you'll need a `DOMAIN` pointing to the instance in advance.
+    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml) and a local copy of [the geosearch repository](https://github.com/NYCPlanning/labs-geosearch-dockerfiles) at `repo_local_path`, relative to the playbook. Note you'll need a `DOMAIN` pointing to the instance in advance.
 
         ```shell
-        ansible-playbook -i digital_ocean.py -l geosearch-test -u USER -e productiondomain=DOMAIN playbooks/geosearch.yml
+        ansible-playbook \
+          -i digital_ocean.py -l labs-geosearch -u USER \
+          -e productiondomain=DOMAIN \
+          -e repo_local_path=../../labs-geosearch-dockerfiles \
+          playbooks/geosearch.yml
         ```
 
     * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the ZAP database playbook](playbooks/zap_db.yml).

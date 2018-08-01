@@ -11,7 +11,9 @@
     local_check_url: http://localhost:4000{{ check_path }}
     remote_check_url: "https://{{ productiondomain }}{{ check_path }}"
     checkout_dir: /srv/checkout
-    repo_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
+    repo_dest_dir: "{{ checkout_dir }}/labs-geosearch-dockerfiles"
+    # set this to work with the repository locally
+    repo_local_path: ""
     run_import: false
   roles:
     - role: common
@@ -26,15 +28,20 @@
       pip:
         name: docker-compose
 
-    # - name: Clone repository
-    #   git:
-    #     repo: https://github.com/NYCPlanning/labs-geosearch-dockerfiles.git
-    #     dest: "{{ checkout_dir }}"
-    # uncomment for local development
+    - name: Clone repository
+      git:
+        repo: https://github.com/NYCPlanning/labs-geosearch-dockerfiles.git
+        dest: "{{ repo_dest_dir }}"
+        version: master
+        force: true
+      when: not repo_local_path
     - name: Copy repository
       synchronize:
-        src: ../../labs-geosearch-dockerfiles
+        src: "{{ repo_local_path }}"
         dest: "{{ checkout_dir }}"
+        delete: true
+        recursive: true
+      when: repo_local_path != ''
 
     - name: Check that the API is available
       uri:
@@ -45,7 +52,7 @@
     - name: Start the server
       command: ./build.sh
       args:
-        chdir: "{{ repo_dir }}"
+        chdir: "{{ repo_dest_dir }}"
       environment:
         DATA_DIR: /srv
       when: api_results is failed
@@ -57,7 +64,7 @@
     - name: Run the import
       command: ./import-pad.sh
       args:
-        chdir: "{{ repo_dir }}"
+        chdir: "{{ repo_dest_dir }}"
       # environment:
       #   SLACK_WEBHOOK_URL: ...
       when: run_import
@@ -65,7 +72,7 @@
     # https://stackoverflow.com/a/33173605/358804
     - name: Fetch nginx template
       fetch:
-        src: "{{ repo_dir }}/nginx.conf"
+        src: "{{ repo_dest_dir }}/nginx.conf"
         dest: /tmp/nginx.conf
         flat: true
         fail_on_missing: true
