@@ -86,6 +86,12 @@ To run against a live server:
         ansible-playbook -i digital_ocean.py -l geosearch-test -u USER -e productiondomain=DOMAIN playbooks/geosearch.yml
         ```
 
+    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the ZAP database playbook](playbooks/zap_db.yml).
+
+        ```shell
+        ansible-playbook -i digital_ocean.py -l zap-database -u USER playbooks/zap_db.yml
+        ```
+
 1. When done with changes, stop the virtualenv.
 
     ```shell
