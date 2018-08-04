@@ -12,9 +12,6 @@
     ssh_max_auth_retries: 100
     ssh_print_motd: true
 
-- name: Restart SSH daemon
-  meta: flush_handlers
-
 - name: Unlock users
   include_tasks: unlock.yml
   loop: "{{ ssh_users }}"
