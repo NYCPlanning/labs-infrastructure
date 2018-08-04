@@ -3,11 +3,9 @@
 - name: Check if {{ item }} is locked
   command: grep -q "{{ item }}:!:" /etc/shadow
   register: check_ubuntu_lock
-  ignore_errors: True
-  changed_when: False
-  become: true
+  ignore_errors: true
+  changed_when: false
 
 - name: Unlock {{ item }}
   command: usermod -p "*" {{ item }}
-  when: check_ubuntu_lock.rc == 0
-  become: true
+  when: check_ubuntu_lock and check_ubuntu_lock.rc == 0
