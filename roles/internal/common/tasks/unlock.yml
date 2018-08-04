@@ -1,0 +1,12 @@
+# Based on https://blog.danivovich.com/2017/08/31/ansible-ssh-hardening-lockout/
+
+- name: Check if {{ item }} is locked
+  command: grep -q "{{ item }}:!:" /etc/shadow
+  register: check_ubuntu_lock
+  ignore_errors: true
+  changed_when: false
+  check_mode: false
+
+- name: Unlock {{ item }}
+  command: usermod -p "*" {{ item }}
+  when: check_ubuntu_lock.rc == 0

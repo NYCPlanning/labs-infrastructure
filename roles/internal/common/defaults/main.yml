@@ -1,3 +1,4 @@
+# real people
 users:
   - afeld
   - allthesignals
@@ -6,4 +7,8 @@ users:
   - trbmcginnis
 former_users: []
 
-ssh_allow_users: deployer dokku {{ users|join(' ') }}
+machine_users:
+  - deployer
+  - dokku
+ssh_users: "{{ users + machine_users }}"
+ssh_allow_users: "{{ ssh_users|join(' ') }}"
