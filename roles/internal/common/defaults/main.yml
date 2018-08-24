@@ -1,12 +1,11 @@
 # real people
 users:
-  - afeld
   - allthesignals
   - andycochran
   - chriswhong
   - trbmcginnis
-former_users: []
-
+former_users:
+  - afeld
 machine_users:
   - deployer
   - dokku
