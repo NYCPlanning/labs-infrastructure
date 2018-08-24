@@ -60,6 +60,7 @@ To run against a live server:
 Any of these can be done as a "dry run" by adding `--check` to the end of the command.
 
 Examples:
+
     * Test connectivity to the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
 
         ```shell
