@@ -55,7 +55,11 @@ To run against a live server:
     export $(./digital_ocean.py --env)
     ```
 
-1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access gets removed. Examples:
+1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access gets removed. 
+
+Any of these can be done as a "dry run" by adding `--check` to the end of the command.
+
+Examples:
     * Test connectivity to the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
 
         ```shell
