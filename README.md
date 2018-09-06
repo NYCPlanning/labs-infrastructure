@@ -79,7 +79,9 @@ Examples:
      ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/base.yml
      ```
 
- * Configure the [Dokku Droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokku playbook](playbooks/dokku.yml).
+ ### DANGER ZONE: These will attempt to upgrade software and may require additional actions
+
+ * Configure a [Dokku Droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokku playbook](playbooks/dokku.yml).
 
      ```shell
      ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
