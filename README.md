@@ -61,45 +61,47 @@ Any of these can be done as a "dry run" by adding `--check` to the end of the co
 
 Examples:
 
-    * Test connectivity to the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
+ * Test connectivity to the Droplets [tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with `labs`.
 
-        ```shell
-        ansible labs -i digital_ocean.py -u USER -m command --args uptime
-        ```
+     ```shell
+     ansible labs -i digital_ocean.py -u USER -m command --args uptime
+     ```
 
-    * Configure a Droplet with [the real Ansible playbook](playbooks/base.yml).
+ * Configure a Droplet with [the real Ansible playbook](playbooks/base.yml).
 
-        ```shell
-        ansible-playbook -i digital_ocean.py -u USER -l DROPLET_NAME playbooks/base.yml
-        ```
+     ```shell
+     ansible-playbook -i digital_ocean.py -u USER -l DROPLET_NAME playbooks/base.yml
+     ```
 
-    * Configure all `labs` Droplets with [the real Ansible playbook](playbooks/base.yml).
+ * Configure all `labs` Droplets with [the real Ansible playbook](playbooks/base.yml).
 
-        ```shell
-        ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/base.yml
-        ```
+     ```shell
+     ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/base.yml
+     ```
 
-    * Configure the [Dokku Droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokku playbook](playbooks/dokku.yml).
+ ### DANGER ZONE: These will attempt to upgrade software and may require additional actions
 
-        ```shell
-        ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
-        ```
+ * Configure a [Dokku Droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokku playbook](playbooks/dokku.yml).
 
-    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml) and a local copy of [the geosearch repository](https://github.com/NYCPlanning/labs-geosearch-dockerfiles) at `repo_local_path`, relative to the playbook. Note you'll need a `DOMAIN` pointing to the instance in advance.
+     ```shell
+     ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
+     ```
 
-        ```shell
-        ansible-playbook \
-          -i digital_ocean.py -l labs-geosearch -u USER \
-          -e productiondomain=DOMAIN \
-          -e repo_local_path=../../labs-geosearch-dockerfiles \
-          playbooks/geosearch.yml
-        ```
+ * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml) and a local copy of [the geosearch repository](https://github.com/NYCPlanning/labs-geosearch-dockerfiles) at `repo_local_path`, relative to the playbook. Note you'll need a `DOMAIN` pointing to the instance in advance.
 
-    * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the ZAP database playbook](playbooks/zap_db.yml).
+     ```shell
+     ansible-playbook \
+       -i digital_ocean.py -l labs-geosearch -u USER \
+       -e productiondomain=DOMAIN \
+       -e repo_local_path=../../labs-geosearch-dockerfiles \
+       playbooks/geosearch.yml
+     ```
 
-        ```shell
-        ansible-playbook -i digital_ocean.py -l zap-database -u USER playbooks/zap_db.yml
-        ```
+ * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the ZAP database playbook](playbooks/zap_db.yml).
+
+     ```shell
+     ansible-playbook -i digital_ocean.py -l zap-database -u USER playbooks/zap_db.yml
+     ```
 
 1. When done with changes, stop the virtualenv.
 
