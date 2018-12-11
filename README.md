@@ -55,7 +55,7 @@ To run against a live server:
     export $(./digital_ocean.py --env)
     ```
 
-1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access gets removed. 
+1. Run one of [the playbooks](playbooks). You will use `root` as the `USER` on the first run and your GitHub username on subsequent runs, as `root` access gets removed.
 
 Any of these can be done as a "dry run" by adding `--check` to the end of the command.
 
@@ -125,30 +125,30 @@ Examples:
 Every server/Droplet should:
 
 1. [ ] **Use an [Ubuntu LTS](https://wiki.ubuntu.com/LTS)** as the operating system, unless there's a good reason to use something else
-    * Why: Consistency
+    * <details><summary>Why</summary> Consistency</details>
 1. [ ] Be **[tagged](https://www.digitalocean.com/docs/droplets/how-to/tag/) with [`labs`](https://cloud.digitalocean.com/tags/labs?i=266877)**
 1. [ ] Use a **[floating IP](https://www.digitalocean.com/docs/networking/floating-ips/)**
-    * Why: So that the server can be replaced without modifying DNS, if need be
+    * <details><summary>Why</summary> So that the server can be replaced without modifying DNS, if need be</details>
     * ...especially if a `*.planning.nyc.gov` domain is going to be pointed at it
 1. [ ] Have a [Cloud **Firewall**](https://www.digitalocean.com/docs/networking/firewalls/) and/or [`ufw`](https://help.ubuntu.com/community/UFW) enabled
-    * Why: To avoid unwanted traffic
+    * <details><summary>Why</summary> To avoid unwanted traffic</details>
     * Use as restrictive of [rules](https://www.digitalocean.com/docs/networking/firewalls/how-to/configure-rules/) as possible
     * Use [private networking](https://www.digitalocean.com/docs/networking/private-networking/) where possible
 1. [ ] Have an Ansible **playbook with the [`common`](roles/internal/common) role**
 1. [ ] Have instructions to **recreate from scratch, ideally with one `ansible-playbook` command** (infrastructure as code)
 1. [ ] Have **[smoke tests](http://softwaretestingfundamentals.com/smoke-testing/)** in the playbook, by using things like Ansible's [`uri`](https://docs.ansible.com/ansible/latest/modules/uri_module.html) module to ensure that an API responds
-    * Why: So Ansible can let you know right away if the deployment failed
+    * <details><summary>Why</summary> So Ansible can let you know right away if the deployment failed</details>
 1. [ ] Have **automated database backups** (if applicable)
-    * Why: So that the data can be restored if worse comes to worse
     * ...especially if it's a canonical data source
+    * <details><summary>Why</summary> So that the data can be restored if worse comes to worse</details>
     * Ideally backups are stored off the machine
-        * Why: In case the server goes :pow: :bomb:
+        * <details><summary>Why</summary> In case the server goes :pow: :bomb:</details>
 1. [ ] Have modifications **tested agaist a non-production server**, and then submitted as **pull requests**
-    * Why: Lower stakes
+    * <details><summary>Why</summary> Lower stakes</details>
 1. [ ] Have credentials for talking to external services with the **[least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)** possible (if applicable)
-    * Why: In case the credentials get leaked or the server gets compromised, limit the potential damage
+    * <details><summary>Why</summary> In case the credentials get leaked or the server gets compromised, limit the potential damage</details>
 1. [ ] Have the services/containers/etc. **start properly after machine reboot**
-    * Why: Services/machines need to be rebooted occassionally for things like upgrades, and this will make the recovery afterwards as smooth as possible
+    * <details><summary>Why</summary> Services/machines need to be rebooted occassionally for things like upgrades, and this will make the recovery afterwards as smooth as possible</details>
     * This needs to be tested manually
 
 Be careful not to check secrets into this repository.
