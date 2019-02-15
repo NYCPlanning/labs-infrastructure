@@ -1,6 +1,0 @@
-# Required
-# certbot_domains: []
-# remote_check_url: https://url.com/something
-
-# Optional
-certbot_email: labs_dl@planning.nyc.gov

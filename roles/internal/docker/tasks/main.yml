@@ -1,5 +1,0 @@
-- name: Copy in Docker config
-  copy:
-    src: ../files/docker-daemon.json
-    dest: /etc/docker/daemon.json
-  notify: Restart Docker
