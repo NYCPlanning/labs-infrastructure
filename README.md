@@ -79,36 +79,6 @@ Examples:
      ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/base.yml
      ```
 
- ### DANGER ZONE: These will attempt to upgrade software and may require additional actions
-
- * Configure a [Dokku Droplet](http://dokku.viewdocs.io/dokku/getting-started/install/digitalocean/) with [the Dokku playbook](playbooks/dokku.yml).
-
-     ```shell
-     ansible-playbook -i digital_ocean.py -l labs-01 -u USER playbooks/dokku.yml
-     ```
-
- * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the Geosearch playbook](playbooks/geosearch.yml) and a local copy of [the geosearch repository](https://github.com/NYCPlanning/labs-geosearch-dockerfiles) at `repo_local_path`, relative to the playbook. Note you'll need a `DOMAIN` pointing to the instance in advance.
-
-     ```shell
-     ansible-playbook \
-       -i digital_ocean.py -l labs-geosearch -u USER \
-       -e productiondomain=DOMAIN \
-       -e repo_local_path=../../labs-geosearch-dockerfiles \
-       playbooks/geosearch.yml
-     ```
-
- * Configure a [Docker Droplet](https://www.digitalocean.com/products/one-click-apps/docker/) with [the ZAP database playbook](playbooks/zap_db.yml).
-
-     ```shell
-     ansible-playbook -i digital_ocean.py -l zap-database -u USER playbooks/zap_db.yml
-     ```
-
-1. When done with changes, stop the virtualenv.
-
-    ```shell
-    exit
-    ```
-
 ## Adding users
 
 1. Have them [add their SSH key to their GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
@@ -130,23 +100,11 @@ Every server/Droplet should:
 1. [ ] Use a **[floating IP](https://www.digitalocean.com/docs/networking/floating-ips/)**
     * <details><summary>Why</summary> So that the server can be replaced without modifying DNS, if need be</details>
     * ...especially if a `*.planning.nyc.gov` domain is going to be pointed at it
-1. [ ] Have a [Cloud **Firewall**](https://www.digitalocean.com/docs/networking/firewalls/) and/or [`ufw`](https://help.ubuntu.com/community/UFW) enabled
+1. [ ] Have a [Cloud **Firewall**](https://www.digitalocean.com/docs/networking/firewalls/) enabled
     * <details><summary>Why</summary> To avoid unwanted traffic</details>
     * Use as restrictive of [rules](https://www.digitalocean.com/docs/networking/firewalls/how-to/configure-rules/) as possible
     * Use [private networking](https://www.digitalocean.com/docs/networking/private-networking/) where possible
 1. [ ] Have an Ansible **playbook with the [`common`](roles/internal/common) role**
-1. [ ] Have instructions to **recreate from scratch, ideally with one `ansible-playbook` command** (infrastructure as code)
-1. [ ] Have **[smoke tests](http://softwaretestingfundamentals.com/smoke-testing/)** in the playbook, by using things like Ansible's [`uri`](https://docs.ansible.com/ansible/latest/modules/uri_module.html) module to ensure that an API responds
-    * <details><summary>Why</summary> So Ansible can let you know right away if the deployment failed</details>
-1. [ ] Have **automated database backups** (if applicable)
-    * ...especially if it's a canonical data source
-    * <details><summary>Why</summary> So that the data can be restored if worse comes to worse</details>
-    * Ideally backups are stored off the machine
-        * <details><summary>Why</summary> In case the server goes :pow: :bomb:</details>
-1. [ ] Have modifications **tested agaist a non-production server**, and then submitted as **pull requests**
-    * <details><summary>Why</summary> Lower stakes</details>
-1. [ ] Have credentials for talking to external services with the **[least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)** possible (if applicable)
-    * <details><summary>Why</summary> In case the credentials get leaked or the server gets compromised, limit the potential damage</details>
 1. [ ] Have the services/containers/etc. **start properly after machine reboot**
     * <details><summary>Why</summary> Services/machines need to be rebooted occassionally for things like upgrades, and this will make the recovery afterwards as smooth as possible</details>
     * This needs to be tested manually
