@@ -76,14 +76,14 @@ Examples of running playbooks for different scenarios:
  * Configure all `labs` Droplets with [the real Ansible playbook](playbooks/base.yml).
 
      ```shell
-     ansible-playbook -i digital_ocean.py -l labs -u USER playbooks/base.yml
+     ansible-playbook -i digital_ocean.py -u USER -l labs playbooks/base.yml
      ```
 
 ## Adding users
 
 1. Have them [add their SSH key to their GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
 1. Add GitHub username to the `users` variable in [the variables file](roles/internal/common/defaults/main.yml).
-1. [Run the base playbook.](#production) (see examples above)
+1. [Run the base playbook.](#production) See examples above.
 
 ## Removing users
 
