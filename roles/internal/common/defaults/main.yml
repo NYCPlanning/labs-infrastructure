@@ -2,12 +2,12 @@
 users:
   - allthesignals
   - andycochran
-  - chriswhong
   - trbmcginnis
   - hannahkates
   - julialucyhogan
 former_users:
   - afeld
+  - chriswhong
 machine_users:
   - deployer
   - dokku
