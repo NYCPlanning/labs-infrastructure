@@ -83,12 +83,12 @@ Examples of running playbooks for different scenarios:
 
 1. Have them [add their SSH key to their GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/).
 1. Add GitHub username to the `users` variable in [the variables file](roles/internal/common/defaults/main.yml).
-1. [Run the base playbook.](#production) See examples above.
+1. Run the base playbook. See examples above.
 
 ## Removing users
 
 1. Move username from the `users` to `former_users` variable in [the variables file](roles/internal/common/defaults/main.yml).
-1. [Run the playbook.](#production)
+1. Run the base playbook. See examples above.
 
 ## Server checklist
 
