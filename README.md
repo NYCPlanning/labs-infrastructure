@@ -104,6 +104,7 @@ Every server/Droplet should:
     * <details><summary>Why</summary> To avoid unwanted traffic</details>
     * Use as restrictive of [rules](https://www.digitalocean.com/docs/networking/firewalls/how-to/configure-rules/) as possible
     * Use [private networking](https://www.digitalocean.com/docs/networking/private-networking/) where possible
+1. [ ] Have backups enabled. The script won't run correctly if backups aren't enabled, because it will fail when it tries to backup and the rest of the script won't run.
 1. [ ] Have an Ansible **playbook with the [`common`](roles/internal/common) role**
 1. [ ] Have the services/containers/etc. **start properly after machine reboot**
     * <details><summary>Why</summary> Services/machines need to be rebooted occassionally for things like upgrades, and this will make the recovery afterwards as smooth as possible</details>
