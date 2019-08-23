@@ -4,10 +4,12 @@ users:
   - andycochran
   - trbmcginnis
   - hannahkates
-  - julialucyhogan
+  - godfreyyeung
+  - pichot
 former_users:
   - afeld
   - chriswhong
+  - julialucyhogan
 machine_users:
   - deployer
   - dokku
